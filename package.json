@@ -13,11 +13,15 @@
     "@tanstack/react-query": "^5.89.0",
     "@tanstack/react-router": "^1.131.49",
     "@tanstack/router-devtools": "^1.131.49",
+    "bootstrap": "^5.3.8",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.1.1",
+    "vibe-rules": "^0.3.91"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
+    "@tanstack/router-plugin": "^1.131.49",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react-swc": "^4.0.1",
