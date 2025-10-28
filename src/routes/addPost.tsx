@@ -1,9 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
-import { Autocomplete, Button, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Button,
+  Checkbox,
+  FormLabel,
+  IconButton,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import { PostSchema, type PostFormValue } from "../schemas/post";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 type PostEnum = "facts" | "entertainment" | "business" | "other";
 
 export const Route = createFileRoute("/addPost")({
@@ -100,9 +108,22 @@ function AddPostComponent() {
             />
           </div>
           <div>
+            <Tooltip
+              title="will show post on everyone's feed"
+              arrow
+              placement="top"
+            >
+              <FormLabel> Show Post </FormLabel>
+            </Tooltip>
+            <Checkbox {...register("showPost")} />
+          </div>
+          <div>
             <Button variant="contained" color="secondary" type="submit">
               Submit{" "}
             </Button>
+            <IconButton aria-label="delete" color="secondary">
+              <DeleteIcon fontSize="small" />
+            </IconButton>
           </div>
         </div>
       </form>
