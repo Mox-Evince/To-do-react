@@ -1,14 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { Autocomplete, Button, TextField } from "@mui/material";
+import { PostSchema, type PostFormValue } from "../schemas/post";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type PostEnum = "facts" | "entertainment" | "business" | "other";
 
-interface IFormInput {
-  firstName: string;
-  postName: string;
-  postType: PostEnum;
-}
 export const Route = createFileRoute("/addPost")({
   component: AddPostComponent,
 });
@@ -19,47 +16,51 @@ function AddPostComponent() {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<IFormInput>();
+  } = useForm<PostFormValue>({
+    resolver: zodResolver(PostSchema),
+    defaultValues: {
+      postType: "",
+    },
+  });
 
   const postTypes: PostEnum[] = ["facts", "business", "entertainment", "other"];
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+  const onSubmit: SubmitHandler<PostFormValue> = (data) => {
     console.log(data);
   };
   return (
     <div className="container">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="d-flex flex-column gap-3">
-          <div>
+        <div className="row">
+          <div className="col-6">
             <TextField
+              className="w-100"
               label="First Name"
-              {...register("firstName", {
-                required: "Please enter first name",
-                maxLength: 10,
-              })}
+              {...register("firstName")}
               error={!!errors.firstName}
               helperText={errors.firstName ? errors.firstName.message : ""}
             />
           </div>
-          <div>
+          <div className="col-6">
             <TextField
+              className="w-100"
               label="Post Name"
-              {...register("postName", { required: "Please enter post name" })}
+              {...register("postName")}
               error={!!errors.postName}
               helperText={
                 <span>{errors.postName ? errors.postName.message : ""}</span>
               }
             />
           </div>
-          <div>
+          <div className="col-6 my-2">
             <Controller
               name="postType"
               control={control}
-              rules={{ required: "Please select post type" }}
               render={({ field, fieldState: { error } }) => (
                 <Autocomplete
                   {...field}
+                  value={field.value ?? ""}
                   options={postTypes}
-                  onChange={(_, value) => field.onChange(value)} // Update form value
+                  onChange={(_, value) => field.onChange(value ?? "")} // Update form value
                   renderInput={(params) => (
                     <TextField
                       {...params}
