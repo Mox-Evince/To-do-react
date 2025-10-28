@@ -6,6 +6,7 @@ export const PostSchema = z.object({
   postType: z.string().refine((val) => !!val && val.trim() !== "", {
     message: "Please select post type",
   }),
+  tags: z.array(z.string()).nonempty("Please select tag"),
 });
 
 export type PostFormValue = z.infer<typeof PostSchema>;

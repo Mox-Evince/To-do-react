@@ -24,6 +24,7 @@ function AddPostComponent() {
   });
 
   const postTypes: PostEnum[] = ["facts", "business", "entertainment", "other"];
+  const tags: string[] = ["new", "Post", "Like", "Comment", "share"];
   const onSubmit: SubmitHandler<PostFormValue> = (data) => {
     console.log(data);
   };
@@ -65,6 +66,31 @@ function AddPostComponent() {
                     <TextField
                       {...params}
                       label="Post Type"
+                      error={!!error}
+                      helperText={error ? error.message : ""}
+                    />
+                  )}
+                />
+              )}
+            />
+          </div>
+          <div className="col-6 my-2">
+            <Controller
+              name="tags"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <Autocomplete
+                  multiple
+                  options={tags}
+                  onChange={(_e, value) => {
+                    console.log(value);
+                    field.onChange(value);
+                  }}
+                  disableCloseOnSelect
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Select Tags"
                       error={!!error}
                       helperText={error ? error.message : ""}
                     />
