@@ -9,6 +9,9 @@ function RouteComponent() {
   console.log(data);
   return (
     <div>
+      <Link to="/addPost">
+        <button>Add Post</button>
+      </Link>
       View Post
       <Link to="." params={{ id: "123" }}>
         Go to Post

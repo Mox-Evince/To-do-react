@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignInRouteImport } from './routes/signIn'
+import { Route as AddPostRouteImport } from './routes/addPost'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UserIdRouteImport } from './routes/user.$id'
@@ -18,6 +19,11 @@ import { Route as PostChar123IdChar125RouteImport } from './routes/post.{-$id}'
 const SignInRoute = SignInRouteImport.update({
   id: '/signIn',
   path: '/signIn',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddPostRoute = AddPostRouteImport.update({
+  id: '/addPost',
+  path: '/addPost',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -44,6 +50,7 @@ const PostChar123IdChar125Route = PostChar123IdChar125RouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/addPost': typeof AddPostRoute
   '/signIn': typeof SignInRoute
   '/post/{-$id}': typeof PostChar123IdChar125Route
   '/user/$id': typeof UserIdRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/addPost': typeof AddPostRoute
   '/signIn': typeof SignInRoute
   '/post/{-$id}': typeof PostChar123IdChar125Route
   '/user/$id': typeof UserIdRoute
@@ -59,21 +67,36 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/addPost': typeof AddPostRoute
   '/signIn': typeof SignInRoute
   '/post/{-$id}': typeof PostChar123IdChar125Route
   '/user/$id': typeof UserIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/signIn' | '/post/{-$id}' | '/user/$id'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/addPost'
+    | '/signIn'
+    | '/post/{-$id}'
+    | '/user/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/signIn' | '/post/{-$id}' | '/user/$id'
-  id: '__root__' | '/' | '/about' | '/signIn' | '/post/{-$id}' | '/user/$id'
+  to: '/' | '/about' | '/addPost' | '/signIn' | '/post/{-$id}' | '/user/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/addPost'
+    | '/signIn'
+    | '/post/{-$id}'
+    | '/user/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AddPostRoute: typeof AddPostRoute
   SignInRoute: typeof SignInRoute
   PostChar123IdChar125Route: typeof PostChar123IdChar125Route
   UserIdRoute: typeof UserIdRoute
@@ -86,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/signIn'
       fullPath: '/signIn'
       preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/addPost': {
+      id: '/addPost'
+      path: '/addPost'
+      fullPath: '/addPost'
+      preLoaderRoute: typeof AddPostRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -122,6 +152,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AddPostRoute: AddPostRoute,
   SignInRoute: SignInRoute,
   PostChar123IdChar125Route: PostChar123IdChar125Route,
   UserIdRoute: UserIdRoute,
