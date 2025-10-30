@@ -4,8 +4,12 @@ import {
   Autocomplete,
   Button,
   Checkbox,
+  FormControl,
   FormLabel,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Tooltip,
 } from "@mui/material";
@@ -31,8 +35,14 @@ function AddPostComponent() {
     },
   });
 
-  const postTypes: PostEnum[] = ["facts", "business", "entertainment", "other"];
+  const categoreis: PostEnum[] = [
+    "facts",
+    "business",
+    "entertainment",
+    "other",
+  ];
   const tags: string[] = ["new", "Post", "Like", "Comment", "share"];
+  const postTypes: string[] = ["public", "private", "friends"];
   const onSubmit: SubmitHandler<PostFormValue> = (data) => {
     console.log(data);
   };
@@ -60,15 +70,33 @@ function AddPostComponent() {
               }
             />
           </div>
+          <div className="col-6">
+            <FormControl fullWidth>
+              <InputLabel id="post-type-label">Post Type</InputLabel>
+              <Select
+                {...register("postType")}
+                label="Post Type"
+                labelId="post-type-label"
+                error={!!errors.postType}
+                defaultValue={""}
+              >
+                {postTypes.map((type) => (
+                  <MenuItem key={type} value={type}>
+                    {type}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
           <div className="col-6 my-2">
             <Controller
-              name="postType"
+              name="category"
               control={control}
               render={({ field, fieldState: { error } }) => (
                 <Autocomplete
                   {...field}
                   value={field.value ?? ""}
-                  options={postTypes}
+                  options={categoreis}
                   onChange={(_, value) => field.onChange(value ?? "")} // Update form value
                   renderInput={(params) => (
                     <TextField
