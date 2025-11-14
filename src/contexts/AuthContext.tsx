@@ -2,8 +2,8 @@ import { createContext, useCallback, useMemo, useState } from "react";
 
 export interface AuthContextType {
   isAuthenticated: boolean;
-  login: (username: string) => void;
-  logout: () => void;
+  login: (username: string) => Promise<void>;
+  logout: () => Promise<void>;
   user: string | null;
 }
 
@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<string | null>(getLoggedinInfo());
 
-  const login = useCallback((username: string) => {
+  const login = useCallback(async (username: string) => {
     if (username) {
       setLoggedInInfo(username);
       setUser(username);
@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const authContextValue: AuthContextType = useMemo(
     () => ({
-      isAuthenticated: false, // Replace with actual authentication state
+      isAuthenticated: !!user,
       login,
       user,
       logout,

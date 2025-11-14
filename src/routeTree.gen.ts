@@ -10,17 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StopwatchRouteImport } from './routes/stopwatch'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as PostsRouteRouteImport } from './routes/_posts/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users/index'
 import { Route as PostsViewRouteImport } from './routes/_posts/view'
 import { Route as PostsPostsRouteImport } from './routes/_posts/posts'
+import { Route as UsersViewIdRouteImport } from './routes/users/view.$id'
+import { Route as UsersAddChar123IdChar125RouteImport } from './routes/users/add.{-$id}'
 import { Route as PostsPostsAddRouteImport } from './routes/_posts/posts.add'
-import { Route as PostsPostsEditIdRouteImport } from './routes/_posts/posts_.edit.$id'
+import { Route as PostsPostsEditPostidRouteImport } from './routes/_posts/posts_.edit.$postid'
 
 const StopwatchRoute = StopwatchRouteImport.update({
   id: '/stopwatch',
   path: '/stopwatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PostsRouteRoute = PostsRouteRouteImport.update({
@@ -47,82 +55,114 @@ const PostsPostsRoute = PostsPostsRouteImport.update({
   path: '/posts',
   getParentRoute: () => PostsRouteRoute,
 } as any)
+const UsersViewIdRoute = UsersViewIdRouteImport.update({
+  id: '/users/view/$id',
+  path: '/users/view/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UsersAddChar123IdChar125Route =
+  UsersAddChar123IdChar125RouteImport.update({
+    id: '/users/add/{-$id}',
+    path: '/users/add/{-$id}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PostsPostsAddRoute = PostsPostsAddRouteImport.update({
   id: '/add',
   path: '/add',
   getParentRoute: () => PostsPostsRoute,
 } as any)
-const PostsPostsEditIdRoute = PostsPostsEditIdRouteImport.update({
-  id: '/posts_/edit/$id',
-  path: '/posts/edit/$id',
+const PostsPostsEditPostidRoute = PostsPostsEditPostidRouteImport.update({
+  id: '/posts_/edit/$postid',
+  path: '/posts/edit/$postid',
   getParentRoute: () => PostsRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/stopwatch': typeof StopwatchRoute
   '/posts': typeof PostsPostsRouteWithChildren
   '/view': typeof PostsViewRoute
   '/users': typeof UsersIndexRoute
   '/posts/add': typeof PostsPostsAddRoute
-  '/posts/edit/$id': typeof PostsPostsEditIdRoute
+  '/users/add/{-$id}': typeof UsersAddChar123IdChar125Route
+  '/users/view/$id': typeof UsersViewIdRoute
+  '/posts/edit/$postid': typeof PostsPostsEditPostidRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/stopwatch': typeof StopwatchRoute
   '/posts': typeof PostsPostsRouteWithChildren
   '/view': typeof PostsViewRoute
   '/users': typeof UsersIndexRoute
   '/posts/add': typeof PostsPostsAddRoute
-  '/posts/edit/$id': typeof PostsPostsEditIdRoute
+  '/users/add/{-$id}': typeof UsersAddChar123IdChar125Route
+  '/users/view/$id': typeof UsersViewIdRoute
+  '/posts/edit/$postid': typeof PostsPostsEditPostidRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_posts': typeof PostsRouteRouteWithChildren
+  '/login': typeof LoginRoute
   '/stopwatch': typeof StopwatchRoute
   '/_posts/posts': typeof PostsPostsRouteWithChildren
   '/_posts/view': typeof PostsViewRoute
   '/users/': typeof UsersIndexRoute
   '/_posts/posts/add': typeof PostsPostsAddRoute
-  '/_posts/posts_/edit/$id': typeof PostsPostsEditIdRoute
+  '/users/add/{-$id}': typeof UsersAddChar123IdChar125Route
+  '/users/view/$id': typeof UsersViewIdRoute
+  '/_posts/posts_/edit/$postid': typeof PostsPostsEditPostidRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/stopwatch'
     | '/posts'
     | '/view'
     | '/users'
     | '/posts/add'
-    | '/posts/edit/$id'
+    | '/users/add/{-$id}'
+    | '/users/view/$id'
+    | '/posts/edit/$postid'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/stopwatch'
     | '/posts'
     | '/view'
     | '/users'
     | '/posts/add'
-    | '/posts/edit/$id'
+    | '/users/add/{-$id}'
+    | '/users/view/$id'
+    | '/posts/edit/$postid'
   id:
     | '__root__'
     | '/'
     | '/_posts'
+    | '/login'
     | '/stopwatch'
     | '/_posts/posts'
     | '/_posts/view'
     | '/users/'
     | '/_posts/posts/add'
-    | '/_posts/posts_/edit/$id'
+    | '/users/add/{-$id}'
+    | '/users/view/$id'
+    | '/_posts/posts_/edit/$postid'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PostsRouteRoute: typeof PostsRouteRouteWithChildren
+  LoginRoute: typeof LoginRoute
   StopwatchRoute: typeof StopwatchRoute
   UsersIndexRoute: typeof UsersIndexRoute
+  UsersAddChar123IdChar125Route: typeof UsersAddChar123IdChar125Route
+  UsersViewIdRoute: typeof UsersViewIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -132,6 +172,13 @@ declare module '@tanstack/react-router' {
       path: '/stopwatch'
       fullPath: '/stopwatch'
       preLoaderRoute: typeof StopwatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_posts': {
@@ -169,6 +216,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostsRouteImport
       parentRoute: typeof PostsRouteRoute
     }
+    '/users/view/$id': {
+      id: '/users/view/$id'
+      path: '/users/view/$id'
+      fullPath: '/users/view/$id'
+      preLoaderRoute: typeof UsersViewIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/users/add/{-$id}': {
+      id: '/users/add/{-$id}'
+      path: '/users/add/{-$id}'
+      fullPath: '/users/add/{-$id}'
+      preLoaderRoute: typeof UsersAddChar123IdChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_posts/posts/add': {
       id: '/_posts/posts/add'
       path: '/add'
@@ -176,11 +237,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostsAddRouteImport
       parentRoute: typeof PostsPostsRoute
     }
-    '/_posts/posts_/edit/$id': {
-      id: '/_posts/posts_/edit/$id'
-      path: '/posts/edit/$id'
-      fullPath: '/posts/edit/$id'
-      preLoaderRoute: typeof PostsPostsEditIdRouteImport
+    '/_posts/posts_/edit/$postid': {
+      id: '/_posts/posts_/edit/$postid'
+      path: '/posts/edit/$postid'
+      fullPath: '/posts/edit/$postid'
+      preLoaderRoute: typeof PostsPostsEditPostidRouteImport
       parentRoute: typeof PostsRouteRoute
     }
   }
@@ -201,13 +262,13 @@ const PostsPostsRouteWithChildren = PostsPostsRoute._addFileChildren(
 interface PostsRouteRouteChildren {
   PostsPostsRoute: typeof PostsPostsRouteWithChildren
   PostsViewRoute: typeof PostsViewRoute
-  PostsPostsEditIdRoute: typeof PostsPostsEditIdRoute
+  PostsPostsEditPostidRoute: typeof PostsPostsEditPostidRoute
 }
 
 const PostsRouteRouteChildren: PostsRouteRouteChildren = {
   PostsPostsRoute: PostsPostsRouteWithChildren,
   PostsViewRoute: PostsViewRoute,
-  PostsPostsEditIdRoute: PostsPostsEditIdRoute,
+  PostsPostsEditPostidRoute: PostsPostsEditPostidRoute,
 }
 
 const PostsRouteRouteWithChildren = PostsRouteRoute._addFileChildren(
@@ -217,8 +278,11 @@ const PostsRouteRouteWithChildren = PostsRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PostsRouteRoute: PostsRouteRouteWithChildren,
+  LoginRoute: LoginRoute,
   StopwatchRoute: StopwatchRoute,
   UsersIndexRoute: UsersIndexRoute,
+  UsersAddChar123IdChar125Route: UsersAddChar123IdChar125Route,
+  UsersViewIdRoute: UsersViewIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

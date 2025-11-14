@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
-import { createFileRoute } from "@tanstack/react-router";
+import { Button, Typography } from "@mui/material";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_posts/posts_/edit/$id")({
+export const Route = createFileRoute("/_posts/posts_/edit/$postid")({
   component: EditPostComponent,
 });
 
@@ -14,6 +14,10 @@ function EditPostComponent() {
       <Typography variant="body1">
         This is the edit post page where you can modify your post.
       </Typography>
+
+      <Button variant="outlined">
+        <Link to="/users">Go to users</Link>
+      </Button>
     </div>
   );
 }

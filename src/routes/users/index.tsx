@@ -1,8 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Button, Container } from "@mui/material";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
+import { sleep } from "../../utils/common";
 
 export const Route = createFileRoute("/users/")({
   component: UserComponent,
+  beforeLoad: async () => {
+    {
+      await sleep(2000);
+    }
+  },
 });
 
 function UserComponent() {
@@ -19,6 +26,28 @@ function UserComponent() {
         <small>Click to update ref count</small>
       </button>
       <span> use state : {count + "\n"}</span>
+      <Container>
+        <Button variant="contained" className="mx-2" color="primary">
+          <Link
+            from="/users"
+            to="./add/{-$id}"
+            params={{}}
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            Add User
+          </Link>
+        </Button>
+        <Button variant="contained" className="mx-2" color="warning">
+          <Link
+            from="/users"
+            to="./view/$id"
+            params={{ id: "123" }}
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            View User
+          </Link>
+        </Button>
+      </Container>
     </div>
   );
 }
