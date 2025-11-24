@@ -1,12 +1,3 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Container,
-  Typography,
-} from "@mui/material";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/users/view/$id")({
@@ -15,31 +6,27 @@ export const Route = createFileRoute("/users/view/$id")({
 
 function RouteComponent() {
   return (
-    <div>
-      <Container>
-        <Card className="m-4 p-4">
-          <CardHeader
-            title={<Typography variant="h5">User Details</Typography>}
-          />
+    <div className="container mt-4">
+      <div className="card m-4 p-4 shadow-sm">
+        <div className="card-header bg-white border-bottom-0">
+          <h5 className="mb-0">User Details</h5>
+        </div>
 
-          <CardContent>
-            <Typography variant="h4">Mox Shah</Typography>
-            <Typography variant="h6">Full Stack developer</Typography>
-          </CardContent>
-          <CardActions className="d-flex justify-content-center">
-            <Button variant="contained" className="mx-2" color="primary">
-              <Link
-                from="/users"
-                to="./add/{-$id}"
-                params={{}}
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                Add User
-              </Link>
-            </Button>
-          </CardActions>
-        </Card>
-      </Container>
+        <div className="card-body">
+          <h4 className="card-title">Mox Shah</h4>
+          <h6 className="card-subtitle mb-2 text-muted">Full Stack developer</h6>
+        </div>
+        <div className="card-footer bg-white border-top-0 d-flex justify-content-center">
+          <Link
+            from="/users"
+            to="./add/{-$id}"
+            params={{}}
+            className="btn btn-primary mx-2 text-white text-decoration-none"
+          >
+            Add User
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

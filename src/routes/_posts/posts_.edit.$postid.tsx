@@ -1,4 +1,3 @@
-import { Button, Typography } from "@mui/material";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_posts/posts_/edit/$postid")({
@@ -7,17 +6,13 @@ export const Route = createFileRoute("/_posts/posts_/edit/$postid")({
 
 function EditPostComponent() {
   return (
-    <div>
-      <Typography variant="h4" gutterBottom>
-        Edit Post
-      </Typography>
-      <Typography variant="body1">
-        This is the edit post page where you can modify your post.
-      </Typography>
+    <div className="container mt-4">
+      <h4 className="mb-3">Edit Post</h4>
+      <p>This is the edit post page where you can modify your post.</p>
 
-      <Button variant="outlined">
-        <Link to="/users">Go to users</Link>
-      </Button>
+      <Link to="/users" className="btn btn-outline-primary">
+        Go to users
+      </Link>
     </div>
   );
 }

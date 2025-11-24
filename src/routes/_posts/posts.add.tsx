@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_posts/posts/add")({
@@ -7,10 +6,10 @@ export const Route = createFileRoute("/_posts/posts/add")({
 
 function RouteComponent() {
   return (
-    <div>
-      <Button variant="contained" color="primary">
+    <div className="container mt-4">
+      <button className="btn btn-primary">
         Add Post
-      </Button>
+      </button>
     </div>
   );
 }

@@ -18,9 +18,13 @@ const InputField = <T extends FieldValues>({
   return (
     <span>
       {register ? (
-        <input placeholder={label} {...register(label, { required })}></input>
+        <input
+          className="form-control"
+          placeholder={label}
+          {...register(label, { required })}
+        ></input>
       ) : (
-        <input placeholder={label} name={label} />
+        <input className="form-control" placeholder={label} name={label} />
       )}
     </span>
   );

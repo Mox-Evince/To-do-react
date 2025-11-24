@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Button, Typography } from "@mui/material";
 
 export const Route = createFileRoute("/stopwatch")({
   component: StopWatchComponent,
@@ -21,11 +20,11 @@ function StopWatchComponent() {
 
   const passedTime = (now - startTime) / 1000;
   return (
-    <div>
-      <Typography variant="h3"> {passedTime.toFixed(3)} </Typography>
-      <Button variant="contained" onClick={handleStart}>
+    <div className="container mt-4">
+      <h3 className="mb-3"> {passedTime.toFixed(3)} </h3>
+      <button className="btn btn-primary" onClick={handleStart}>
         Start
-      </Button>
+      </button>
     </div>
   );
 }

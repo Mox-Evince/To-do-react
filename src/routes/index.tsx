@@ -1,4 +1,3 @@
-import { Button, Container } from "@mui/material";
 import {
   createFileRoute,
   Link,
@@ -22,39 +21,39 @@ function HomeComponent() {
 
   return (
     <div>
-      <Container className="d-flex">
-        <Button variant="contained" className="mx-2" color="secondary">
-          <Link
-            to="/stopwatch"
-            style={{ textDecoration: "none", color: "white" }}
-            search={{ time: "2000" }}
-          >
-            Go to Stopwatch
-          </Link>
-        </Button>
-        <Button variant="contained" className="mx-2" color="primary">
-          <Link to="/posts" style={{ textDecoration: "none", color: "white" }}>
-            Go to Posts
-          </Link>
-        </Button>
-        <Button variant="contained" className="mx-2" color="success">
-          <Link to="/users" style={{ textDecoration: "none", color: "white" }}>
-            Go to Users
-          </Link>
-        </Button>
-        <Button
-          variant="contained"
-          className="mx-2"
-          color="warning"
+      <div className="container d-flex justify-content-center mt-5">
+        <Link
+          to="/stopwatch"
+          className="btn btn-secondary mx-2 text-white text-decoration-none"
+          search={{ time: "2000" }}
+        >
+          Go to Stopwatch
+        </Link>
+        <Link
+          to="/posts"
+          className="btn btn-primary mx-2 text-white text-decoration-none"
+        >
+          Go to Posts
+        </Link>
+        <Link
+          to="/users"
+          className="btn btn-success mx-2 text-white text-decoration-none"
+        >
+          Go to Users
+        </Link>
+        <button
+          className="btn btn-warning mx-2 text-white"
           onClick={handleLogout}
         >
           Logout
-        </Button>
-      </Container>
+        </button>
+      </div>
       <MatchRoute to="/users" pending>
         {(isPending) =>
           isPending ? (
-            <span className="bg-dark text-light w-75 h-75"> Loading... </span>
+            <div className="d-flex justify-content-center mt-4">
+              <span className="badge bg-dark text-light p-3"> Loading... </span>
+            </div>
           ) : (
             ""
           )

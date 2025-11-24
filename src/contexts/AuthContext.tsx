@@ -3,7 +3,7 @@ import { createContext, useCallback, useMemo, useState } from "react";
 export interface AuthContextType {
   isAuthenticated: boolean;
   login: (username: string) => Promise<void>;
-  logout: () => Promise<void>;
+  logout: () => void;
   user: string | null;
 }
 
