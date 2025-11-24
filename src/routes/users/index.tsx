@@ -7,7 +7,7 @@ export const Route = createFileRoute("/users/")({
   component: UserComponent,
   beforeLoad: async () => {
     {
-      await sleep(2000);
+      await sleep(0);
     }
   },
 });
@@ -35,6 +35,20 @@ function UserComponent() {
             style={{ textDecoration: "none", color: "white" }}
           >
             Add User
+          </Link>
+        </Button>
+        <Button variant="contained" className="mx-2" color="primary">
+          <Link
+            from="/users"
+            to="./add/{-$id}"
+            params={{ id: "1" }}
+            mask={{
+              to: "/users/update" as "/users/add/{-$id}",
+              params: { id: "1" },
+            }}
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            Update User
           </Link>
         </Button>
         <Button variant="contained" className="mx-2" color="warning">

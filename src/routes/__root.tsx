@@ -26,6 +26,20 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
         to: "/login",
       });
     }
+    const pathArray = location.pathname.split("/");
+    console.log(pathArray);
+    if (
+      location.pathname.includes("update") &&
+      pathArray.length === 4 &&
+      !!+pathArray[3]
+    ) {
+      console.log("We will handle it surely 😎");
+      throw redirect({
+        to: "/users/add/{-$id}",
+        params: { id: pathArray[3] },
+        mask: { to: location.pathname },
+      });
+    }
   },
   component: RootLayout,
 });
