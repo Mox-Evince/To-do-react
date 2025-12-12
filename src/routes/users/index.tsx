@@ -9,11 +9,28 @@ export const Route = createFileRoute("/users/")({
       await sleep(0);
     }
   },
+  loader: async () => {
+    await sleep(500);
+    const users = [
+      {
+        name: "Mox",
+        tech: "React, Angular, Node",
+        exp: 5,
+      },
+    ];
+
+    return users;
+  },
 });
 
 function UserComponent() {
   const ref = useRef(0);
+
   const [count, setCount] = useState(0);
+
+  const users = Route.useLoaderData();
+
+  console.log(users);
 
   const handleClick = () => {
     ref.current += 1;
@@ -21,7 +38,10 @@ function UserComponent() {
   return (
     <div className="container mt-4">
       <div className="mb-3">
-        <button className="btn btn-outline-secondary me-2" onClick={handleClick}>
+        <button
+          className="btn btn-outline-secondary me-2"
+          onClick={handleClick}
+        >
           use ref {ref.current}
         </button>
         <button

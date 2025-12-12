@@ -6,12 +6,14 @@ import {
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import type { AuthContextType } from "../contexts/AuthContext";
 import Header from "../components/Header";
+import { HeaderComponent } from "./-theme/header";
 
 interface RootRouteContext {
   auth: AuthContextType;
 }
 const RootLayout = () => (
   <>
+    <HeaderComponent />
     <Header />
 
     <Outlet />
@@ -27,7 +29,6 @@ export const Route = createRootRouteWithContext<RootRouteContext>()({
       });
     }
     const pathArray = location.pathname.split("/");
-    console.log(pathArray);
     if (
       location.pathname.includes("update") &&
       pathArray.length === 4 &&
